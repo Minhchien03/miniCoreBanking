@@ -1,0 +1,38 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+  
+    {
+      "name": "Python: Current File (Root Context)",
+      "type": "debugpy",
+      "request": "launch",
+      
+      // "${file}" nghĩa là bạn đang mở file nào thì chạy file đó
+      "program": "${file}", 
+      
+      "console": "integratedTerminal",
+
+      // === QUAN TRỌNG: Ép thư mục chạy về gốc ===
+      // Dù bạn chạy file nằm sâu trong 'app/services/logic/', 
+      // hệ thống vẫn coi như bạn đang đứng ở thư mục gốc project.
+      "cwd": "${workspaceFolder}",
+
+      // Thêm root vào PYTHONPATH để Python hiểu các import tuyệt đối (VD: from app.database...)
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      // Cấu hình phụ: Dành riêng để chạy server (nếu cần)
+      "name": "Python: Run App Main",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/main.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    }
+  ]
+}
