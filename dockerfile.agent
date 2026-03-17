@@ -1,0 +1,18 @@
+FROM python:3.12-slim
+
+# Cài đặt công cụ hệ thống và dọn dẹp để giảm dung lượng
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Cài đặt thư viện cho Phòng ban AI
+RUN pip install --no-cache-dir crewai langchain-google-genai langchain
+
+# Bảo mật: Chạy với user thường thay vì root
+RUN adduser --disabled-password agent_user
+USER agent_user
+
+# Copy toàn bộ project vào sandbox để Agent có dữ liệu làm việc
+COPY --chown=agent_user:agent_user . .
