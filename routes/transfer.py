@@ -137,6 +137,6 @@ async def transfer_funds(request: TransferRequest, db: AsyncSession = Depends(ge
             amount=request.amount,
             entry_type="credit"
         )
-        db.add([debit_entry, credit_entry]) 
+        db.add_all([debit_entry, credit_entry]) 
 
     return {"message": "Transfer successful", "transaction_id": new_txn.id}
