@@ -8,3 +8,4 @@ app.log
 stress_test.py
 stress_test_results.md
 test_db.py
+githubManager.md
