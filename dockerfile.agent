@@ -1,0 +1,26 @@
+FROM python:3.12-slim
+
+# 1. Cài đặt công cụ hệ thống và dọn dẹp để giảm dung lượng
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# 2. Bảo mật: Tạo user thường trước
+RUN adduser --disabled-password agent_user
+
+# 3. Copy CHỈ file requirements.txt vào trước để tận dụng Docker Cache
+COPY requirements.txt .
+
+# 4. Cài đặt TOÀN BỘ thư viện từ file requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 5. Chuyển sang sử dụng user thường để tăng tính bảo mật
+USER agent_user
+
+# 6. Copy toàn bộ project vào sandbox và cấp quyền cho agent_user
+COPY --chown=agent_user:agent_user . .
+
+# 7. Khởi chạy Agent
+CMD ["python", "-u", "agent.py"]
