@@ -3,20 +3,23 @@ services:
   ai_agency:
     build:
       context: .
-      dockerfile: dokerfile.agent
+      dockerfile: dockerfile.agent
     volumes:
       - .:/app  
-    environment:
-      - GEMINI_API_KEY=AIzaSyC2IZsFQuIiZujhvCoCW4h8MzZ8EgfaCQw 
+    env_file:
+      - .env
     depends_on:
       - db
       - redis
 
   # Hạ tầng bổ trợ cho dự án
+# Cơ sở dữ liệu Postgres
   db:
     image: postgres:15
     environment:
-      POSTGRES_PASSWORD: 1234567@
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
   
   redis:
     image: redis:alpine
