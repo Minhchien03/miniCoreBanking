@@ -1,19 +1,32 @@
+#AI Agent Service (commented out for now, can be enabled when needed)
+# services:
+#   ai_agency:
+#     build:
+#       context: .
+#       dockerfile: dockerfile.agent
+#     volumes:
+#       - .:/app  
+#     env_file:
+#       - .env
+#     depends_on:
+#       - db
+#       - redis
+
 services:
-  # Agent sẽ làm việc ở đây
-  ai_agency:
+  # 1. Core Banking Backend API
+  api:
     build:
       context: .
-      dockerfile: dockerfile.agent
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" # Đổi port nếu bạn dùng port khác
     volumes:
-      - .:/app  
+      - .:/app
     env_file:
       - .env
     depends_on:
       - db
       - redis
-
-  # Hạ tầng bổ trợ cho dự án
-# Cơ sở dữ liệu Postgres
   db:
     image: postgres:15
     environment:
