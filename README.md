@@ -6,11 +6,17 @@
 ## 🌟 Tính năng chính
 
 * **Tuân thủ ACID**: Đảm bảo tất cả các giao dịch tài chính hoàn toàn tuân thủ các nguyên tắc ACID bằng cách sử dụng các khối giao dịch (transaction blocks) ở cấp độ cơ sở dữ liệu.
+  
 * **Kiểm soát đồng thời (Chống chi tiêu kép - Anti-Double Spending)**: Áp dụng cơ chế **Khóa bi quan (Pessimistic Locking)** (`SELECT ... FOR UPDATE`) để xử lý an toàn các yêu cầu chuyển tiền đồng thời và ngăn chặn tình trạng tương tranh (race conditions).
+  
 * **Sổ cái kép (Double-Entry Ledger)**: Các biến động tài chính được ghi lại dưới dạng các bút toán sổ cái (nợ/có) chỉ ghi thêm (append-only) không thể thay đổi, đảm bảo khả năng kiểm toán toàn diện.
+  
 * **Quản lý lỗi tập trung**: Tầng router (điều hướng) gọn gàng đạt được bằng cách định tuyến tất cả các lỗi logic nghiệp vụ thông qua một trình xử lý `BusinessException` tập trung.
+  
 * **Truy vết phân tán & Khả năng quan sát (Observability)**: `TraceIDMiddleware` tùy chỉnh tạo ra một UUID duy nhất cho mỗi request, UUID này tự động được đính kèm vào tất cả các log của ứng dụng giúp quá trình gỡ lỗi (debugging) diễn ra liền mạch.
+  
 * **Kiến trúc bất đồng bộ**: Tương tác với cơ sở dữ liệu hoàn toàn bất đồng bộ sử dụng `SQLAlchemy Async` và `asyncpg` để đạt thông lượng (throughput) tối đa.
+  
 * **Kiểm thử tự động (Automated Testing)**: Bộ test `pytest` mô phỏng các tình trạng race condition, concurrent attacks, database failures, and transaction rollbacks
 
 ## 🛠️ Công nghệ sử dụng (Tech Stack)
